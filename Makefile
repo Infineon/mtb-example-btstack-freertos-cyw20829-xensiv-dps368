@@ -100,9 +100,9 @@ SOURCES=
 # directories (without a leading -I).
 INCLUDES=./configs
 
-APP_VERSION_MAJOR?=0
+APP_VERSION_MAJOR?=2
 APP_VERSION_MINOR?=0
-APP_VERSION_BUILD?=1
+APP_VERSION_BUILD?=0
 
 # Add additional defines to the build process (without a leading -D).
 DEFINES=CY_RETARGET_IO_CONVERT_LF_TO_CRLF CY_RTOS_AWARE

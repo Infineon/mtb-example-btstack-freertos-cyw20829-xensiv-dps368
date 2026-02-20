@@ -8,7 +8,7 @@ Infineon's Sensor Hub Android app can be used to connect to the EVK and display 
 
 [View this README on GitHub.](https://github.com/Infineon/mtb-example-btstack-freertos-cyw20829-xensiv-dps368)
 
-[Provide feedback on this code example.](https://cypress.co1.qualtrics.com/jfe/form/SV_1NTns53sK2yiljn?Q_EED=eyJVbmlxdWUgRG9jIElkIjoiQ0UyNDA0OTgiLCJTcGVjIE51bWJlciI6IjAwMi00MDQ5OCIsIkRvYyBUaXRsZSI6IkJsdWV0b290aCZyZWc7IExFIFhFTlNJViZ0cmFkZTsgRFBTMzY4IHNlbnNpbmcgc2VydmljZSIsInJpZCI6ImxsYW5lc3BhdHJpYyIsIkRvYyB2ZXJzaW9uIjoiMS4wLjAiLCJEb2MgTGFuZ3VhZ2UiOiJFbmdsaXNoIiwiRG9jIERpdmlzaW9uIjoiTUNEIiwiRG9jIEJVIjoiSUNXIiwiRG9jIEZhbWlseSI6IkJUQUJMRSJ9)
+[Provide feedback on this code example.](https://yourvoice.infineon.com/jfe/form/SV_1NTns53sK2yiljn?Q_EED=eyJVbmlxdWUgRG9jIElkIjoiQ0UyNDA0OTgiLCJTcGVjIE51bWJlciI6IjAwMi00MDQ5OCIsIkRvYyBUaXRsZSI6IkJsdWV0b290aCZyZWc7IExFIFhFTlNJViZ0cmFkZTsgRFBTMzY4IHNlbnNpbmcgc2VydmljZSIsInJpZCI6InBhdHJpY2stZGFuaWVsLmxsYW5lc0BpbmZpbmVvbi5jb20iLCJEb2MgdmVyc2lvbiI6IjIuMC4wIiwiRG9jIExhbmd1YWdlIjoiRW5nbGlzaCIsIkRvYyBEaXZpc2lvbiI6Ik1DRCIsIkRvYyBCVSI6IklDVyIsIkRvYyBGYW1pbHkiOiJCVEFCTEUifQ==)
 
 
 ## Requirements
@@ -16,7 +16,7 @@ Infineon's Sensor Hub Android app can be used to connect to the EVK and display 
 - [ModusToolbox&trade;](https://www.infineon.com/modustoolbox) v3.2 or later (tested with v3.2)
 - Programming language: C
 - Board support package (BSP) minimum required version for:
-   - CYW920829M2EVK-02: v2.0.0
+   - CYW920829M2EVK-02: v3.0.0
 - Associated parts: [AIROC&trade; CYW20829 Bluetooth&reg; LE SoC](https://www.infineon.com/cms/en/product/promopages/airoc20829)
 
 
@@ -417,6 +417,7 @@ Document title: *CE240498* – *Bluetooth&reg; LE XENSIV&trade; DPS368 sensing s
  Version | Description of change
  ------- | ---------------------
  1.0.0   | New code example
+ 2.0.0   | Updated design.modus to support B1 variant of CYW20829
 <br>
 
 

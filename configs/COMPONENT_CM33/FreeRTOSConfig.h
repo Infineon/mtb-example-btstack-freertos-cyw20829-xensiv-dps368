@@ -113,20 +113,66 @@ extern uint32_t SystemCoreClock;
 #define configTIMER_QUEUE_LENGTH                10
 #define configTIMER_TASK_STACK_DEPTH            ( configMINIMAL_STACK_SIZE * 2 )
 
-
 /*
-configMAX_SYSCALL_INTERRUPT_PRIORITY sets the highest interrupt priority from which
-interrupt safe FreeRTOS API functions can be called.
+ Interrupt nesting behavior configuration.
+ This is explained here: http://www.freertos.org/a00110.html
 
-!!!! configMAX_SYSCALL_INTERRUPT_PRIORITY must not be set to zero !!!!
-See http://www.FreeRTOS.org/RTOS-Cortex-M3-M4.html
-*/
-#define configMAX_SYSCALL_INTERRUPT_PRIORITY    0x3F
+ Priorities are controlled by two macros:
+ - configKERNEL_INTERRUPT_PRIORITY determines the priority of the RTOS daemon task
+ - configMAX_API_CALL_INTERRUPT_PRIORITY dictates the priority of ISRs that make API calls
+
+ Notes:
+ 1. Interrupts that do not call API functions should be >= configKERNEL_INTERRUPT_PRIORITY
+ and will nest.
+ 2. Interrupts that call API functions must have priority between KERNEL_INTERRUPT_PRIORITY
+ and MAX_API_CALL_INTERRUPT_PRIORITY (inclusive).
+ 3. Interrupts running above MAX_API_CALL_INTERRUPT_PRIORITY are never delayed by the OS.
+ */
+/*
+ PSoC 6 __NVIC_PRIO_BITS = 3
+
+ 0 (high)
+ 1           MAX_API_CALL_INTERRUPT_PRIORITY 001xxxxx (0x3F)
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7 (low)     KERNEL_INTERRUPT_PRIORITY       111xxxxx (0xFF)
+
+ !!!! configMAX_SYSCALL_INTERRUPT_PRIORITY must not be set to zero !!!!
+ See http://www.FreeRTOS.org/RTOS-Cortex-M3-M4.html
+
+ */
+
+/* Cortex-M specific definitions. */
+#ifdef __NVIC_PRIO_BITS
+/* __BVIC_PRIO_BITS will be specified when CMSIS is being used. */
+#define configPRIO_BITS             __NVIC_PRIO_BITS
+#else
+#define configPRIO_BITS             3        /* 15 priority levels */
+#endif
+
+/* The lowest interrupt priority that can be used in a call to a "set priority"
+ function. */
+#define configLIBRARY_LOWEST_INTERRUPT_PRIORITY         0x07
+
+/* The highest interrupt priority that can be used by any interrupt service
+ routine that makes calls to interrupt safe FreeRTOS API functions.  DO NOT CALL
+ INTERRUPT SAFE FREERTOS API FUNCTIONS FROM ANY INTERRUPT THAT HAS A HIGHER
+ PRIORITY THAN THIS! (higher priorities are lower numeric values.) */
+#define configLIBRARY_MAX_SYSCALL_INTERRUPT_PRIORITY    5
+
+/* Interrupt priorities used by the kernel port layer itself.  These are generic
+ to all Cortex-M ports, and do not rely on any particular library functions. */
+#define configKERNEL_INTERRUPT_PRIORITY         ( configLIBRARY_LOWEST_INTERRUPT_PRIORITY << (8 - configPRIO_BITS) )
+/* !!!! configMAX_SYSCALL_INTERRUPT_PRIORITY must not be set to zero !!!!
+ See http://www.FreeRTOS.org/RTOS-Cortex-M3-M4.html. */
+#define configMAX_SYSCALL_INTERRUPT_PRIORITY    ( configLIBRARY_MAX_SYSCALL_INTERRUPT_PRIORITY << (8 - configPRIO_BITS) )
 
 /* configMAX_API_CALL_INTERRUPT_PRIORITY is a new name for configMAX_SYSCALL_INTERRUPT_PRIORITY
  that is used by newer ports only. The two are equivalent. */
 #define configMAX_API_CALL_INTERRUPT_PRIORITY   configMAX_SYSCALL_INTERRUPT_PRIORITY
-
 
 /* Set the following definitions to 1 to include the API function, or zero
 to exclude the API function. */
